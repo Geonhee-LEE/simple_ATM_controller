@@ -1,0 +1,9 @@
+# Compiled Object files
+*.o
+*.obj
+
+# VScode IDE
+*.vscode
+
+# CMake build output
+build/
