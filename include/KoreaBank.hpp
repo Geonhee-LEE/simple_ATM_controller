@@ -2,6 +2,7 @@
 
 
 #include "BackAPI.hpp"
+#include "CustomerData.hpp"
 
 
 class KoreaBank : public BankAPI{
