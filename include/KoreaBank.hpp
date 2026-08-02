@@ -19,6 +19,7 @@ class KoreaBank : public BankAPI{
         int withdraw(int amount) override;
 
         void showAccounts();
+        bool checkDiagnosis();
 
 
     private:

@@ -11,21 +11,62 @@
 
 #include <iostream>
 
+bool selectMode(KoreaBank& bank, int mode){
+    int money;
+
+    switch(mode){
+        case 1:
+            money = bank.showBalance();
+            cout << ">> current balance: " << money << "\n";
+            return true;
+        case 2:
+            cout << ">> Please the deposit you want" << "\n";
+            std::cin >> money;
+            money = bank.deposit(money); 
+            cout << ">> current balance: " << money << "\n";
+            return true;
+        case 3:
+            cout << ">> Please the deposit you want" << "\n";
+            std::cin >> money;
+            money = bank.withdraw(money);
+            cout << ">> current balance: " << money << "\n";
+            return true;
+        case 4:
+            return false;
+        default:
+            return false;
+    }
+}
+
+void showProcess(){
+    cout << "==============================================" << "\n";
+    cout << "| How can I help you? Please enter a number" << "\n";
+    cout << "| >> [1] SEE balance" << "\n";
+    cout << "| >> [2] Deposit" << "\n";
+    cout << "| >> [3] Withdraw" << "\n";
+    cout << "| >> [4] Exit" << "\n";
+    cout << "==============================================" << "\n";
+
+}
+
+
 int main(){
     KoreaBank bank;
 
-    std::cout << "Please insert the card: ";
+    std::cout << "Please insert the card: \n";
     bank.insertCard(11111111); // Existing User = [11111111, 22222222, 33333333] 
-    
-    
-    std::cout << "Please select the account: ";
-    int pin;
+    std::cout << "Please select the account: \n";
+    int pin, mode;
     std::cin >> pin;
     bank.selectAccount(pin);
 
-    std::cout << "balance : " << bank.showBalance() << "\n";
-    std::cout << "deposit : " << bank.deposit(50000) << "\n";
-    std::cout << "withdraw: " << bank.withdraw(3000000) << "\n";
+    
+    while(bank.checkDiagnosis()){
+        showProcess();
+        std::cin >> mode;
+        if(!selectMode(bank, mode))
+            break;
+    }
 
     return 0;
 }

@@ -6,16 +6,15 @@ KoreaBank::KoreaBank(){
     is_connected_ = false;
 }
 
-
 void KoreaBank::insertCard(const int card_number){
     std::lock_guard<std::mutex> lock(mtx_);
 
     if(custom_data_.validateUser(card_number)){
-        cout << "***************************" << "\n";
-        cout << "** Welcome to the Korea Bank! **" << "\n";
-        cout << "***************************" << "\n";
+        cout << "================================" << "\n";
+        cout << "Welcome to the Korea Bank!" << "\n";
         current_card_info_ = custom_data_.getUserInformation(card_number);
         respondPINNumber(card_number);
+        showAccounts();
     }
     else{
         cout << "[Wrong information] Please check the card again!" << "\n";
@@ -25,22 +24,26 @@ void KoreaBank::insertCard(const int card_number){
 
 
 void KoreaBank::respondPINNumber(const int card_number){
-    cout << ">> Current card's pin num: " << current_card_info_.pin_number << "\n";
-    showAccounts();
+    cout << "The card's pin num: " << current_card_info_.pin_number << "\n";
 }
 
 
 void KoreaBank::showAccounts(){
-    cout << "================================" << "\n";
     for(uint i = 0; i < current_card_info_.account_name.size(); i++){
-        cout << "[" << i << "]" << " Account name: " << current_card_info_.account_name[i] << "\n";
-        cout << "[" << i << "]" << " Account num: " << current_card_info_.account_number[i] << "\n";
+        cout << ">>> [" << i << "]" << " Account name: " << current_card_info_.account_name[i] << "\n";
+        cout << ">>> [" << i << "]" << " Account num: " << current_card_info_.account_number[i] << "\n";
         cout << "----------------------" << "\n";
     }
     cout << "================================" << "\n";
 
 }
 
+bool KoreaBank::checkDiagnosis(){
+    if(!is_connected_)
+        return false;
+    else
+        return true;
+}
 
 
 void KoreaBank::selectAccount(const int account){
@@ -48,7 +51,7 @@ void KoreaBank::selectAccount(const int account){
     std::lock_guard<std::mutex> lock(mtx_);
 
     if(account >= current_card_info_.account_name.size()){
-        cout << "You should select the number of account" << "\n";
+        cout << "You should select the number of account!! Retry again!" << "\n";
         return;
     }
     else{
