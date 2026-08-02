@@ -22,7 +22,7 @@ class BankAPI{
         virtual ~BankAPI() = default;
 
         virtual void insertCard(int card_number) = 0;
-        virtual void respondPINNumber(const std::string& pin_number) = 0;
+        virtual void respondPINNumber(const int pin_number) = 0;
         virtual void selectAccount(int account) = 0;
         virtual int showBalance() = 0;
         virtual int deposit(int amount) = 0;

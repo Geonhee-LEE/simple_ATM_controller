@@ -17,9 +17,10 @@
 
 struct Card{
     std::string pin_number;
-    std::string account_name;
-    long long account_number;
-    long long amount;
+
+    std::vector<std::string> account_name;
+    std::vector<long long> account_number;
+    std::vector<long long> amount;
 };
 
 class CustomerData{
@@ -30,20 +31,35 @@ class CustomerData{
         }
         ~CustomerData() = default;
 
-        void createAccounts(long long card_num, std::string pin_number, std::string account_name, long long account_number, long long amount){
+        // Create or Append the card information
+        void createAccounts(long long card_num, const std::string pin_number, const std::string account_name, long long account_number, long long amount){
             std::lock_guard<std::mutex> lock(mtx_);
-            cards_[card_num] = Card{pin_number, account_name, account_number, amount};
+
+            // Append the account name, number, amount for existing user
+            if(validateUserUnlocked(card_num)){
+                Card card = cards_[card_num];
+                card.account_name.push_back(account_name);
+                card.account_number.push_back(account_number);
+                card.amount.push_back(amount);
+            }
+            else{
+                // Appear the new card user
+                cards_[card_num] = Card{pin_number, {account_name}, {account_number}, {amount}};
+            }
         }
 
+        // Find the user data among data base   
         bool validateUserUnlocked(long long card_num) const{
             return cards_.find(card_num) != cards_.end();
         }
 
+        // Validate the card is included in user data base
         bool validateUser(long long card_num){
             std::lock_guard<std::mutex> lock(mtx_);
             return validateUserUnlocked(card_num);
         }
 
+        // Return the user information
         Card getUserInformation(long long card_num){
             std::lock_guard<std::mutex> lock(mtx_);
 
@@ -65,9 +81,9 @@ class CustomerData{
             std::lock_guard<std::mutex> lock(mtx_);
 
             // Load the (dummy) user information
-            cards_[11111111] = Card{"1111", "Geonhee", 1001, 10000};
-            cards_[22222222] = Card{"2222", "John",    1002, 10000};
-            cards_[33333333] = Card{"3333", "James",   1003, 10000};
+            cards_[11111111] = Card{"1111", {"Geonhee", "Lee"}, {1001,1004}, {10000, 20000}};
+            cards_[22222222] = Card{"2222", {"John"},    {1002}, {10000}};
+            cards_[33333333] = Card{"3333", {"James"},   {1003}, {10000}};
 
         }
 
