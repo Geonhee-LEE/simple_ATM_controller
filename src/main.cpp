@@ -14,10 +14,14 @@
 int main(){
     KoreaBank bank;
 
+    std::cout << "Please insert the card: ";
     bank.insertCard(11111111); // Existing User = [11111111, 22222222, 33333333] 
     
     
-    bank.selectAccount(3);
+    std::cout << "Please select the account: ";
+    int pin;
+    std::cin >> pin;
+    bank.selectAccount(pin);
 
     std::cout << "balance : " << bank.showBalance() << "\n";
     std::cout << "deposit : " << bank.deposit(50000) << "\n";

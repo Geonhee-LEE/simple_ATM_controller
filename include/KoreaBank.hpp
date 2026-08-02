@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "BackAPI.hpp"
+#include "BankAPI.hpp"
 #include "CustomerData.hpp"
 
 using namespace std;
@@ -23,6 +23,7 @@ class KoreaBank : public BankAPI{
 
     private:
         std::mutex mtx_;
+        bool is_connected_;
         CustomerData custom_data_;
         Card current_card_info_;
 };

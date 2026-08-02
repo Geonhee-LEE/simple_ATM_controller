@@ -1,5 +1,5 @@
 /**
- * @file BackAPI.hpp
+ * @file BankAPI.hpp
  * @author Geonhee Lee (gunhee6392@gamil.com)
  * @brief BANK API Class
  * @version 0.1

@@ -81,7 +81,7 @@ class CustomerData{
             std::lock_guard<std::mutex> lock(mtx_);
 
             // Load the (dummy) user information
-            cards_[11111111] = Card{"1111", {"Geonhee", "Lee"}, {1001,1004}, {10000, 20000}};
+            cards_[11111111] = Card{"1111", {"Lee Geonhee", "Kim Bear"}, {1001,1004}, {10000, 20000}};
             cards_[22222222] = Card{"2222", {"John"},    {1002}, {10000}};
             cards_[33333333] = Card{"3333", {"James"},   {1003}, {10000}};
 
