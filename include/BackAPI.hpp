@@ -1,16 +1,16 @@
 /**
  * @file BackAPI.hpp
- * @author Geonhee Lee (email@example.com)
+ * @author Geonhee Lee (gunhee6392@gamil.com)
  * @brief BANK API Class
  * @version 0.1
  * @date 2026-08-02
  * @copyright Apache License(c) 2026
  */
 
+#pragma once
+
 #include <iostream>
 #include <string>
-
-using namespace std;
 
 /** Base API  class 
 * Abstract the virtual functions to inherit the each bank company
@@ -18,19 +18,17 @@ using namespace std;
 class BankAPI{
 
     public:
-        BankAPI();
-        ~BankAPI(){};
-
-    private:
-        int selected_account_; 
-        int amount_; 
-        int card_number_; 
+        BankAPI() = default;
+        virtual ~BankAPI() = default;
 
         virtual void insertCard(int card_number) = 0;
-        virtual constexpr void respondPINNumber(string pin_number) = 0;
+        virtual void respondPINNumber(const std::string& pin_number) = 0;
         virtual void selectAccount(int account) = 0;
-        virtual constexpr int showBalance() = 0;
-        virtual int deposit() = 0;
-        virtual int withdraw() = 0;
+        virtual int showBalance() = 0;
+        virtual int deposit(int amount) = 0;
+        virtual int withdraw(int amount) = 0;
 
+    protected:
+        int card_number_ = 0;
+        int selected_account_ = 0;
 };
