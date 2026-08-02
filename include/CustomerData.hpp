@@ -30,28 +30,11 @@ class CustomerData{
         }
         ~CustomerData() = default;
 
-    private:
-
-        // A bank API wouldn't give the ATM the PIN number, but it can tell you if the PIN number is correct or not
-        std::mutex mtx_;
-        std::map<long long, Card> cards_;
-
-        void loadExistingAccounts(){
-            std::lock_guard<std::mutex> lock(mtx_);
-
-            // Load the (dummy) user information
-            cards_[11111111] = Card{"1111", "Geonhee", 1001, 10000};
-            cards_[22222222] = Card{"2222", "John",    1002, 10000};
-            cards_[33333333] = Card{"3333", "James",   1003, 10000};
-
-        }
-
         void createAccounts(long long card_num, std::string pin_number, std::string account_name, long long account_number, long long amount){
             std::lock_guard<std::mutex> lock(mtx_);
             cards_[card_num] = Card{pin_number, account_name, account_number, amount};
         }
 
-        // The caller must already hold mtx_
         bool validateUserUnlocked(long long card_num) const{
             return cards_.find(card_num) != cards_.end();
         }
@@ -71,4 +54,21 @@ class CustomerData{
 
             return cards_[card_num];
         }
+
+    private:
+
+        // A bank API wouldn't give the ATM the PIN number, but it can tell you if the PIN number is correct or not
+        std::mutex mtx_;
+        std::map<long long, Card> cards_;
+
+        void loadExistingAccounts(){
+            std::lock_guard<std::mutex> lock(mtx_);
+
+            // Load the (dummy) user information
+            cards_[11111111] = Card{"1111", "Geonhee", 1001, 10000};
+            cards_[22222222] = Card{"2222", "John",    1002, 10000};
+            cards_[33333333] = Card{"3333", "James",   1003, 10000};
+
+        }
+
 };

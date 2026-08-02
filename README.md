@@ -4,8 +4,9 @@
 # Requirements
 - Ubuntu 24.04 LTS
 
-# How to build
+# How to configure and build
 ```
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build -j
 ```
 

@@ -14,7 +14,7 @@
 int main(){
     KoreaBank bank;
 
-    bank.insertCard(1111);
+    bank.insertCard(11111111); // Existing User = [11111111, 22222222, 33333333] 
     bank.respondPINNumber("1234");
     bank.selectAccount(1001);
 
