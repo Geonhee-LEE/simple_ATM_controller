@@ -15,23 +15,23 @@ bool selectMode(KoreaBank& bank, int mode){
     int money;
 
     switch(mode){
-        case 1:
+        case 1: // See balance
             money = bank.showBalance();
             cout << ">> current balance: " << money << "\n";
             return true;
-        case 2:
+        case 2: // Deposit
             cout << ">> Please the deposit you want" << "\n";
             std::cin >> money;
             money = bank.deposit(money); 
             cout << ">> current balance: " << money << "\n";
             return true;
-        case 3:
+        case 3: // Withdraw
             cout << ">> Please the deposit you want" << "\n";
             std::cin >> money;
             money = bank.withdraw(money);
             cout << ">> current balance: " << money << "\n";
             return true;
-        case 4:
+        case 4: // Exit
             return false;
         default:
             return false;
@@ -41,7 +41,7 @@ bool selectMode(KoreaBank& bank, int mode){
 void showProcess(){
     cout << "==============================================" << "\n";
     cout << "| How can I help you? Please enter a number" << "\n";
-    cout << "| >> [1] SEE balance" << "\n";
+    cout << "| >> [1] See balance" << "\n";
     cout << "| >> [2] Deposit" << "\n";
     cout << "| >> [3] Withdraw" << "\n";
     cout << "| >> [4] Exit" << "\n";

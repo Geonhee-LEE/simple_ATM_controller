@@ -2,10 +2,17 @@
 
 #include <iostream>
 
+/**
+ * @brief Constructor
+ */
 KoreaBank::KoreaBank(){
     is_connected_ = false;
 }
 
+/**
+ * @brief Insert the card and Validated the card for user database. 
+ * @param card_number selected card
+ */
 void KoreaBank::insertCard(const int card_number){
     std::lock_guard<std::mutex> lock(mtx_);
 
@@ -23,11 +30,18 @@ void KoreaBank::insertCard(const int card_number){
 }
 
 
+/**
+ * @brief Respond the pin number for input card number
+ * @param card_number selected card
+ */
 void KoreaBank::respondPINNumber(const int card_number){
     cout << "The card's pin num: " << current_card_info_.pin_number << "\n";
 }
 
 
+/**
+ * @brief Show the accounts info
+ */
 void KoreaBank::showAccounts(){
     for(uint i = 0; i < current_card_info_.account_name.size(); i++){
         cout << ">>> [" << i << "]" << " Account name: " << current_card_info_.account_name[i] << "\n";
@@ -38,6 +52,9 @@ void KoreaBank::showAccounts(){
 
 }
 
+/**
+ * @brief Check the atm connection status
+ */
 bool KoreaBank::checkDiagnosis(){
     if(!is_connected_)
         return false;
@@ -46,6 +63,10 @@ bool KoreaBank::checkDiagnosis(){
 }
 
 
+/**
+ * @brief Select the account of the saved card 
+ * @param account selected account
+ */
 void KoreaBank::selectAccount(const int account){
 
     std::lock_guard<std::mutex> lock(mtx_);
@@ -65,6 +86,10 @@ void KoreaBank::selectAccount(const int account){
 }
 
 
+/**
+ * @brief Show the balance about the account 
+ * @return current amount
+ */
 int KoreaBank::showBalance(){
     std::lock_guard<std::mutex> lock(mtx_);
     if(!is_connected_){
@@ -76,6 +101,11 @@ int KoreaBank::showBalance(){
 }
 
 
+/**
+ * @brief Plus the money for current balance 
+ * @param amount input money 
+ * @return current amount after deposit
+ */
 int KoreaBank::deposit(int amount){
     std::lock_guard<std::mutex> lock(mtx_);
     if(!is_connected_){
@@ -88,6 +118,11 @@ int KoreaBank::deposit(int amount){
 }
 
 
+/**
+ * @brief Substract the money for current balance 
+ * @param amount input money 
+ * @return current amount after withdraw
+ */
 int KoreaBank::withdraw(int amount){
     std::lock_guard<std::mutex> lock(mtx_);
     if(!is_connected_){
